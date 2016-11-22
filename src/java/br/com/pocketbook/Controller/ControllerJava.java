@@ -10,6 +10,8 @@ import br.com.pocketbook.modelo.Endereco;
 import br.com.pocketbook.modelo.Estabelecimento;
 import br.com.pocketbook.modelo.Pessoa;
 import br.com.pocketbook.modelo.User;
+import br.com.pocketbook.modelo.Nota;
+import br.com.pocketbook.modelo.Produto;
 import java.sql.SQLException;
 
 /**
@@ -81,15 +83,28 @@ public class ControllerJava {
         endereco.setCidade(cidade);
         endereco.setUf(uf);
         
-        
-        estabelecimento = new Estabelecimento(cnpj, idUsuario, 2);
-        estabelecimento.setNome(nomeEstabelecimento);
-        estabelecimento.setEmail(emailEstabelecimento);
-        
         try {
             endereco.inserir();
+            
+            estabelecimento = new Estabelecimento(cnpj, idUsuario, endereco.getIdEndereco());
+            estabelecimento.setNome(nomeEstabelecimento);
+            estabelecimento.setEmail(emailEstabelecimento);
+            
             estabelecimento.inserir();
             return true;
+        } catch (SQLException ex) {
+            return retorno;
+        } catch (ClassNotFoundException ex) {
+            return retorno;
+        }
+    }
+    
+    static boolean cadastrarProduto(int cod, String nome, float valor){
+        Produto produto = new Produto(cod, nome, valor);
+        boolean retorno = false;
+        try {
+            produto.inserir();
+            return retorno;
         } catch (SQLException ex) {
             return retorno;
         } catch (ClassNotFoundException ex) {

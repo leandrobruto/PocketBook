@@ -24,16 +24,20 @@ public class EstabelecimentoDAO {
         boolean retorno = false;
         Connection con = new GerenteConexao().getConnection();
         PreparedStatement st = null;
-        String insert = "INSERT INTO PocketBook.estabelecimento values(?,?,?,?,?)";
+        String insert = "INSERT INTO PocketBook.estabelecimento (idEstabelecimento, id_usuario, id_endereco, nome, email) values(?,?,?,?,?)";
         
         try {
             st = con.prepareStatement(insert);
             st.setString(1, estabelecimento.getId());
             System.out.println("Id estabelecimento: " + estabelecimento.getId());
             st.setString(2, estabelecimento.getId_usurario());
+            System.out.println("Id usuario: " + estabelecimento.getId_usurario());
             st.setInt(3, estabelecimento.getId_endereco());
+            System.out.println("Id endereco: " + estabelecimento.getId_endereco());
             st.setString(4, estabelecimento.getNome());
+            System.out.println("Nome: " + estabelecimento.getNome());
             st.setString(5, estabelecimento.getEmail());
+            System.out.println("Email: " + estabelecimento.getEmail());
             
             st.execute();
             LOG.info("Estabelecimento adicionado");

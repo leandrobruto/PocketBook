@@ -69,6 +69,7 @@ public class EnderecoDAO {
             if(result != null && result.next()){
             retorno = result.getInt("idEndereco");
             }
+            endereco.setIdEndereco(retorno);
             System.out.println("Retorno: " + retorno);
             
             LOG.info("Endereço id = " + retorno);

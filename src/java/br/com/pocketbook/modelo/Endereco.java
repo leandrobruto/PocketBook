@@ -19,6 +19,7 @@ public class Endereco {
     private String cidade;
     private String uf;
     private String cep; 
+    private int idEndereco;
 
     public String getLogradouro() {
         return logradouro;
@@ -66,6 +67,14 @@ public class Endereco {
 
     public void setCep(String cep) {
         this.cep = cep;
+    }
+
+    public int getIdEndereco() {
+        return idEndereco;
+    }
+
+    public void setIdEndereco(int idEndereco) {
+        this.idEndereco = idEndereco;
     }
     
     public void inserir() throws SQLException, ClassNotFoundException{

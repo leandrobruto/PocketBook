@@ -7,6 +7,8 @@ package br.com.pocketbook.Controller;
  */
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.time.LocalDate;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -133,7 +135,7 @@ public class ControllerServlet extends HttpServlet {
                                 cnpj, nomeEstabelecimento, emailEstabelecimento, request.getSession().getAttribute("idUsuario"))) {
                             System.out.println("Cadastrou");
                             session.setAttribute("resposta", "sim");
-                            response.sendRedirect("perfil.jsp");
+                            response.sendRedirect("perfilEstabelecimento.jsp");
                             
                         } else {
                             processeErro(request, response);
@@ -142,6 +144,32 @@ public class ControllerServlet extends HttpServlet {
                         processeErro(request, response);
                     }
                     break;
+                    
+                case "cadastraProduto":
+                    System.out.println("cod: " + request.getParameter("cod"));
+                    int cod = Integer.parseInt(request.getParameter("cod"));
+                    System.out.println("nome: " + request.getParameter("nome"));
+                    String nome = request.getParameter("nome");
+                    System.out.println("valor: " + request.getParameter("valor"));
+                    float valor = Float.parseFloat(request.getParameter("valor"));
+                    System.out.println("aqui: " + cod +" "+ nome +" "+ valor);
+                    System.out.println("data: " + Date.valueOf(LocalDate.MAX));
+                    
+                    if (cod != 0 && nome != null && valor != 0) {
+                        System.out.println("passou");
+                        if (ControllerJava.cadastrarProduto(cod, nome, valor)) {
+                            response.sendRedirect("perfilEstabelecimento.jsp");
+                        }
+                    }
+                    break;
+                    
+                case "geraNota":
+                    int codNota = Integer.parseInt(request.getParameter("numeroNota"));
+                    int quantidade = Integer.parseInt(request.getParameter("quantidade"));
+                    float vTotal = Float.parseFloat(request.getParameter("valorTotal"));
+                    String data = request.getParameter("date");
+                    break;
+                    
                 default:
                     processeErro(request, response);
                     break;

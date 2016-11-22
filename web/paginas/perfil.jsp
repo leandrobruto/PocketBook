@@ -87,7 +87,7 @@
   <button class="w3-btn demo" onclick="currentDiv(3)">3</button>
 </div>
 
-<script>
+            <script>
 var slideIndex = 1;
 showDivs(slideIndex);
 

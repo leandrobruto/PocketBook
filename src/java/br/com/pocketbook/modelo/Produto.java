@@ -5,6 +5,9 @@
  */
 package br.com.pocketbook.modelo;
 
+import br.com.pocketbook.database.ProdutoDAO;
+import java.sql.SQLException;
+
 /**
  *
  * @author nexti
@@ -44,6 +47,8 @@ public class Produto {
         this.valor = valor;
     }
     
-    
+    public void inserir() throws SQLException, ClassNotFoundException{
+        new ProdutoDAO().inserir(this);
+    }
     
 }

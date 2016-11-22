@@ -1,10 +1,10 @@
-package org.apache.jsp.Paginas;
+package org.apache.jsp;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
 
-public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
+public final class cadastroEstabelecimento_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
 
   private static final JspFactory _jspxFactory = JspFactory.getDefaultFactory();
@@ -47,45 +47,34 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("<!DOCTYPE html>\n");
       out.write("<html>\n");
       out.write("    <head>\n");
-      out.write("        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n");
       out.write("        <style>body {background-color: powderblue;}\n");
-      out.write("\t\t\th1{color: black;}\n");
-      out.write("\t\t\tp{color: black;}\n");
-      out.write("\t\t</style>\n");
+      out.write("                h1{color: black;}\n");
+      out.write("                p{color: black;}\n");
+      out.write("        </style>\n");
       out.write("\n");
-      out.write("\t\t<center>\n");
-      out.write("\t\t\t<img src=\"pocketbook-logo.png\">\n");
-      out.write("\t\t</center>\n");
+      out.write("    <center>\n");
+      out.write("        <img src=\"pocketbook-logo.png\">\n");
+      out.write("    </center>\n");
       out.write("\n");
-      out.write("        <title>Pocket Book</title>\n");
-      out.write("    </head>\n");
+      out.write("</head>\n");
+      out.write("<title>Pocket Book</title>\n");
       out.write("    <body>\n");
-      out.write("        <center>\n");
-      out.write("\t<p>\n");
-      out.write("\t</p>\n");
       out.write("        <form method=\"post\" action=\"");
       out.print( request.getContextPath());
-      out.write("/ControllerServlet?acao=login\">\n");
-      out.write("\t\t<div>\n");
-      out.write("                    <label for=\"email\">E-mail:</label>\n");
-      out.write("                    <input name=\"email\" type=\"email\" id=\"email\" align=\"right\"/>\n");
-      out.write("\t\t</div>\t\t\n");
-      out.write("\t\t<p>\n");
-      out.write("\t\t</p>\n");
-      out.write("\t<div>\n");
-      out.write("            <label for=\"senha\">Senha:</label>\n");
-      out.write("            <input name=\"senha\" type=\"password\" id=\"senha\" align=\"right\" />\t\t\t\t\n");
-      out.write("\t\t</div>\n");
-      out.write("                <br/>\n");
-      out.write("\t\t<div class=\"button\">\n");
-      out.write("                    <button type=\"submit\">Login</button>\n");
-      out.write("\t\t</div>\n");
-      out.write("            </form>\n");
-      out.write("\t\t<p>Cadastre-se agora!</p>\n");
-      out.write("                    <div>\n");
-      out.write("\t\t\t<a href=\"cadastro.jsp\" target=\"_blank\">Cadastrar</a>\n");
-      out.write("                    </div>\n");
-      out.write("\t\t</center>\n");
+      out.write("/ControllerServlet?acao=cadastrarE\">\n");
+      out.write("            <input id=\"nEstabelecimento\" type=\"text\" name=\"nomeEstabelecimento\" placeholder=\"Empresa\">\n");
+      out.write("            <input id=\"cnpj\" type=\"text\" name=\"cnpj\" placeholder=\"CNPJ\">\n");
+      out.write("            <input id=\"emailE\" type=\"text\" name=\"emailE\" placeholder=\"Email estabelecimento\">\n");
+      out.write("            <input id=\"cEmailE\" type=\"text\" name=\"cEmailE\" placeholder=\"Confirme Email\">\n");
+      out.write("            <h1>Endereço:</h1>\n");
+      out.write("            <input id=\"logradouro\" type=\"text\" name=\"logradouro\" placeholder=\"Logradouro\">\n");
+      out.write("            <input id=\"numero\" type=\"number\" name=\"numero\" placeholder=\"Numero\">\n");
+      out.write("            <input id=\"bairro\" type=\"text\" name=\"bairro\" placeholder=\"Bairro\">\n");
+      out.write("            <input id=\"cep\" type=\"number\" name=\"cep\" placeholder=\"Cep\">\n");
+      out.write("            <input id=\"cidade\" type=\"text\" name=\"cidade\" placeholder=\"Cidade\">\n");
+      out.write("            <input id=\"uf\" type=\"text\" name=\"uf\" placeholder=\"UF\">\n");
+      out.write("            <button type=\"submit\" value=\"login\"> Cadastrar</button> \n");
+      out.write("        </form>\n");
       out.write("    </body>\n");
       out.write("</html>\n");
     } catch (Throwable t) {

@@ -9,10 +9,15 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>  
-        <link type="text/css" rel="stylesheet" href="/resources/perfil.css"/>
+    <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link type="text/css" rel="stylesheet" href="perfil.css"/>
         <title>PocketBook</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<style>
+.mySlides {display:none}
+</style>
         <script>
             function funcao1()
             {
@@ -61,19 +66,63 @@
                 <!--<div><img src="perfil.jpg" width="60%" height="60%" ></div>-->
                 <div><h2><%= request.getSession().getAttribute("usuario")%> !</h2></div>
                 <br/>
-                <div><a href="<%= request.getContextPath()%>/ControlerServlet?acao=perfil">Editar Perfil</a></div>
+                <div><a href="<%= request.getContextPath()%>/ControllerServlet?acao=perfil">Editar Perfil</a></div>
             </div>
             <br/>
+            
+            <div class="w3-content" style="max-width:800px">
+ <label class="mySlides" src="img_fjords.jpg" style="width:100%">dasddasdasdasdasdasdasdasdasdasd</label>
+  <label class="mySlides" src="img_fjords.jpg" style="width:100%">dasddasdasdasdasdasdasda</label>
+  <label class="mySlides" src="img_fjords.jpg" style="width:100%">dasddasdasdasdasdasdasdasdasdasd</label>
+  <label class="mySlides" src="img_fjords.jpg" style="width:100%">dasddasdasdasdasdasdsd</label>
+</div>
+
+<div class="w3-center">
+  <div class="w3-section">
+    <button class="w3-btn" onclick="plusDivs(-1)">❮ Prev</button>
+    <button class="w3-btn" onclick="plusDivs(1)">Next ❯</button>
+  </div>
+  <button class="w3-btn demo" onclick="currentDiv(1)">1</button> 
+  <button class="w3-btn demo" onclick="currentDiv(2)">2</button> 
+  <button class="w3-btn demo" onclick="currentDiv(3)">3</button>
+</div>
+
+<script>
+var slideIndex = 1;
+showDivs(slideIndex);
+
+function plusDivs(n) {
+  showDivs(slideIndex += n);
+}
+
+function currentDiv(n) {
+  showDivs(slideIndex = n);
+}
+
+function showDivs(n) {
+  var i;
+  var x = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("demo");
+  if (n > x.length) {slideIndex = 1}    
+  if (n < 1) {slideIndex = x.length}
+  for (i = 0; i < x.length; i++) {
+     x[i].style.display = "none";  
+  }
+  for (i = 0; i < dots.length; i++) {
+     dots[i].className = dots[i].className.replace(" w3-red", "");
+  }
+  x[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " w3-red";
+}
+</script>
+            
             <div>
                 <p>Casdatre seu Estabelecimento:</p>
-                <form method="post" action="<%= request.getContextPath()%>/ControlerServlet?acao=cadastrarE">
-                    <input id="nEstabelecimento" type="text" name="nomeEstabelecimento" placeholder="Empresa">
-                    <input id="cnpj" type="tex" name="cnpj" placeholder="CNPJ">
-                    <input id="emailE" type="tex" name="emailE" placeholder="Email estabelecimento">
-                    <input id="cEmailE" type="tex" name="cEmailE" placeholder="Confirme Email">
-                    <button type="submit" value="login"> Cadastrar</button> 
-                </form>
-                    <br/>
+                <div id="div1">
+                    <div class="text"><h2>Seja nosso parceiro. Cadastre seu estabelecimento!</h2></div><br>
+                    <div class="text"><a href= " <%= request.getContextPath()%>/ControllerServlet?acao=cadastroEstabelecimento"></div>
+                </div>
+                <br/>
                 <a href="<%= request.getContextPath()%>/LogoutServlet" title="Fazer logout">Sair</a>
             </div>
         </div>

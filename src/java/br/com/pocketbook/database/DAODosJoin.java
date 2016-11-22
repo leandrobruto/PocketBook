@@ -19,7 +19,6 @@ public class DAODosJoin {
         String retorno = null;
         Connection conexao = new GerenteConexao().getConnection();
         PreparedStatement st = null;
-        System.out.println("ID_Usuario: " + idUsuario);
         String query = "select pe.nome from Pessoa pe join Usuario us on us.id_pessoa=pe.idPessoa where us.idUser=?";
         try{
             st= conexao.prepareStatement(query);
@@ -38,7 +37,6 @@ public class DAODosJoin {
                 st.close();
             }
         }
-        System.out.println("RETORNO: " + retorno);
         return retorno;
     }
 }

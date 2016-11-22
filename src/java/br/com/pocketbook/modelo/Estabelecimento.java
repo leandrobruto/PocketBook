@@ -14,15 +14,15 @@ import java.sql.SQLException;
  */
 public class Estabelecimento {
 
-    private String id;//cnpj
-    private String id_usurario;//email do usuario
+    private String id; //cnpj
+    private String id_usuario; //email do usuario
     private int id_endereco;
     private String nome;
     private String email;
 
     public Estabelecimento(String id, String id_usurario, int id_endereco) {
         this.id = id;
-        this.id_usurario = id_usurario;
+        this.id_usuario = id_usurario;
         this.id_endereco = id_endereco;
     }
 
@@ -35,11 +35,11 @@ public class Estabelecimento {
     }
 
     public String getId_usurario() {
-        return id_usurario;
+        return id_usuario;
     }
 
     public void setId_usurario(String id_usurario) {
-        this.id_usurario = id_usurario;
+        this.id_usuario = id_usurario;
     }
 
     public int getId_endereco() {

@@ -25,13 +25,13 @@ public class PessoaDAO {
     public void inserir(Pessoa pessoa) throws SQLException, ClassNotFoundException {
         Connection con = new GerenteConexao().getConnection();
         PreparedStatement st = null;
-        String inserir = "INSERT INTO Pessoa VALUES(?,?,?,?)";
+        String inserir = "INSERT INTO Pessoa (idPessoa, nome, sobrenome)VALUES(?,?,?)";
         try {
             st = con.prepareStatement(inserir);
             st.setString(1, pessoa.getId()); //cpf
             st.setString(2, pessoa.getNome());
             st.setString(3, pessoa.getSobrenome());
-            st.setInt(4, pessoa.getId_endereco()); //endereço id
+//            st.setInt(4, pessoa.getId_endereco()); //endereço id
             System.out.println("hum");
             st.execute();
             System.out.println("Urri");

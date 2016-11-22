@@ -18,22 +18,23 @@ import java.util.logging.Logger;
  */
 public class EstabelecimentoDAO {
     
-    private static final Logger LOG = Logger.getLogger(PessoaDAO.class.getName());
+    private static final Logger LOG = Logger.getLogger(EstabelecimentoDAO.class.getName());
 
     public static boolean inserir(Estabelecimento estabelecimento) throws SQLException, ClassNotFoundException {
         boolean retorno = false;
         Connection con = new GerenteConexao().getConnection();
         PreparedStatement st = null;
-        String insert = "INSERT INTO PocketBook.Estabelecimento values(?,?,?,?,?)";
-
+        String insert = "INSERT INTO PocketBook.estabelecimento values(?,?,?,?,?)";
+        
         try {
             st = con.prepareStatement(insert);
             st.setString(1, estabelecimento.getId());
+            System.out.println("Id estabelecimento: " + estabelecimento.getId());
             st.setString(2, estabelecimento.getId_usurario());
             st.setInt(3, estabelecimento.getId_endereco());
             st.setString(4, estabelecimento.getNome());
             st.setString(5, estabelecimento.getEmail());
-
+            
             st.execute();
             LOG.info("Estabelecimento adicionado");
             return true;
@@ -54,7 +55,7 @@ public class EstabelecimentoDAO {
         Estabelecimento retorno = null;
         Connection con = new GerenteConexao().getConnection();
         PreparedStatement st = null;
-        String query = "SELECT ID, id_usuario, id_endereco, Nome, email from Ipub.Estabelecimento where ID=?";
+        String query = "SELECT idEstabelecimento, id_usuario, id_endereco, nome, email from PocketBook.estabelecimento where idEstabelecimento=?";
 
         try {
             st = con.prepareStatement(query);

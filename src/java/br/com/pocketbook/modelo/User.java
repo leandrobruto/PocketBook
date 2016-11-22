@@ -56,7 +56,6 @@ public class User {
     }
     
     public void inserir() throws SQLException, ClassNotFoundException {
-        System.out.println("function");
         new UserDAO().inserir(this);
     }
     

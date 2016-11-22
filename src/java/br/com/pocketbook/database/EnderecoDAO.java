@@ -18,24 +18,25 @@ import java.util.logging.Logger;
  */
 public class EnderecoDAO {
     
-    private static final Logger LOG = Logger.getLogger(PessoaDAO.class.getName());
+    private static final Logger LOG = Logger.getLogger(EnderecoDAO.class.getName());
 
     public int inserir(Endereco endereco) throws SQLException, ClassNotFoundException {
         Connection con = new GerenteConexao().getConnection();
         PreparedStatement st = null;
-        String insert = "INSERT INTO PocketBook.Endereco (logradouro,numero,bairro,cidade,uf,cep) "
-                + "values(?,?,?,?,?,?)";
-
+        String insert = "INSERT INTO PocketBook.Endereco (logradouro, numero, bairro, cep, cidade, uf)values(?,?,?,?,?,?)";
+        System.out.println("endereçoDAO");
         try {
             st = con.prepareStatement(insert);
             st.setString(1, endereco.getLogradouro());
             st.setInt(2, endereco.getNumero());
             st.setString(3, endereco.getBairro());
-            st.setString(4, endereco.getCidade());
-            st.setString(5, endereco.getUf());
-            st.setString(6, endereco.getCep());
-
+            st.setString(4, endereco.getCep());
+            st.setString(5, endereco.getCidade());
+            st.setString(6, endereco.getUf());
+            
+            System.out.println("vai");
             st.execute();
+            System.out.println("foi");
             LOG.info("Endereço inserido");
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -47,10 +48,11 @@ public class EnderecoDAO {
                 con.close();
             }
         }
+        System.out.println("uruuuu");
         int retorno = -1;
         PreparedStatement pegaid = null;
         con = new GerenteConexao().getConnection();
-        String query = "Select id from ipub.Endereco where "
+        String query = "Select idEndereco from PocketBook.Endereco where "
                 + "logradouro=? and numero=? and bairro=? and cidade=? and uf=? and cep=?";
         
         try {
@@ -64,8 +66,12 @@ public class EnderecoDAO {
             
             ResultSet result = pegaid.executeQuery();
             
-            retorno = result.getInt("ID");
-            LOG.info("Endereço id = "+retorno);
+            if(result != null && result.next()){
+            retorno = result.getInt("idEndereco");
+            }
+            System.out.println("Retorno: " + retorno);
+            
+            LOG.info("Endereço id = " + retorno);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
@@ -83,7 +89,7 @@ public class EnderecoDAO {
         Endereco retorno = null;
         Connection con = new GerenteConexao().getConnection();
         PreparedStatement st = null;
-        String query = "SELECT ID, Logradouro, Numero, Bairro, Cidade, UF, CEP FROM Ipub.Endereco where id=?";
+        String query = "SELECT idEndereco, logradouro, numero, bairro, cidade, uf, cep FROM PocketBook.Endereco where idEndereco=?";
 
         try {
             st = con.prepareStatement(query);

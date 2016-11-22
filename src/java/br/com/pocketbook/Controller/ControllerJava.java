@@ -32,7 +32,6 @@ public class ControllerJava {
         
         try {
             pessoa.inserir();
-            System.out.println("proximo");
             usuario.inserir();
             return true;
         } catch (SQLException sql) {
@@ -70,14 +69,25 @@ public class ControllerJava {
         return retorno;
     }
 
-    static boolean cadastrarEstabelecimento(String cnpj, String nomeEstabelecimento, String emailEstabelecimento, Object usuario) {
+    static boolean cadastrarEstabelecimento(String logradouro, int numero, String bairro, String cep, String cidade, String uf,
+            String cnpj, String nomeEstabelecimento, String emailEstabelecimento, Object usuario) {
         boolean retorno = false;
         String idUsuario = usuario.toString();
-        System.out.println(idUsuario);
+        endereco = new Endereco();
+        endereco.setLogradouro(logradouro);
+        endereco.setNumero(numero);
+        endereco.setBairro(bairro);
+        endereco.setCep(cep);
+        endereco.setCidade(cidade);
+        endereco.setUf(uf);
+        
+        
         estabelecimento = new Estabelecimento(cnpj, idUsuario, 2);
         estabelecimento.setNome(nomeEstabelecimento);
         estabelecimento.setEmail(emailEstabelecimento);
+        
         try {
+            endereco.inserir();
             estabelecimento.inserir();
             return true;
         } catch (SQLException ex) {

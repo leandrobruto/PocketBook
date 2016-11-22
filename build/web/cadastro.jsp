@@ -65,10 +65,7 @@
             </form>
                 
                 <div>
-                <div id="div1">
-                    <div class="text"><h2>Seja nosso parceiro. Cadastre seu estabelecimento!</h2></div><br>
-                    <div class="text"><img src="maoE.png"><a href= "<%= request.getContextPath()%>/ControlerServlet?acao=cadastroEstabelecimento"><img src="IPUB_5.png"></a><img src="maoD.png"></div>
-                </div>
+                
                 <div id="publicidades">
                     
                 </div>

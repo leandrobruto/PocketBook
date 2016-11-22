@@ -28,7 +28,6 @@ public class UserDAO {
         try {
             st = con.prepareStatement(insert);
             st.setString(1, usuario.getID()); //email
-            System.out.println("ID: " + usuario.getID());
             st.setString(2, usuario.getId_pessoa()); //cpf
             st.setString(3, usuario.getTipo()); 
             st.setString(4, usuario.getSenha());
@@ -52,7 +51,7 @@ public class UserDAO {
         Connection con = new GerenteConexao().getConnection();
         PreparedStatement st = null;
         String query = "select idUser, id_pessoa, tipo, senha from PocketBook.Usuario where idUser=?";
-
+   
         try {
             st = con.prepareStatement(query);
             st.setString(1, ID);

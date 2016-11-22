@@ -34,17 +34,14 @@ public class ControllerServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        System.out.println("uia: " + request.getSession().getAttribute("usuario") );
         if (request.getSession().getAttribute("usuario") != null) {
-            System.out.println("vai negaum");
             response.sendRedirect("perfil.jsp");
-            System.out.println("deunao");
         } else {
             String acaoPost = request.getParameter("acao");
             if (null != acaoPost) {
                 switch (acaoPost) {
                     case "cadastroEstabelecimento":
-                        response.sendRedirect("index.jsp");
+                        response.sendRedirect("cadastroEstabelecimento.jsp");
                         break;
                     default:
                         processeErro(request, response);
@@ -89,12 +86,9 @@ public class ControllerServlet extends HttpServlet {
                 case "login":
                     String usuario = request.getParameter("email");
                     String senhaU = request.getParameter("senha");
-                    System.out.println("Email: " + usuario + " Senha: " + senhaU);
                     if (ControllerJava.login(usuario, senhaU)) {
                         session.setAttribute("usuario", ControllerJava.getNome(usuario));
-                        System.out.println("passou");
                         session.setAttribute("idUsuario", usuario);
-                        System.out.println("resposta: " + response);
                         processRequest(request, response);
                     } else {
                         processeErro(request, response);
@@ -126,8 +120,18 @@ public class ControllerServlet extends HttpServlet {
                     String emailEstabelecimento = request.getParameter("emailE");
                     String confirmeEmail = request.getParameter("cEmailE");
                     String cnpj = request.getParameter("cnpj");
+                    String logradouro = request.getParameter("logradouro");
+                    int numero = Integer.parseInt(request.getParameter("numero"));
+                    String bairro = request.getParameter("bairro");
+                    String cep = request.getParameter("cep");
+                    String cidade = request.getParameter("cidade");
+                    String uf = request.getParameter("uf");
+                    
+                    System.out.println("Cadastro");
                     if (this.confirmaString(emailEstabelecimento, confirmeEmail) && !nomeEstabelecimento.equals("") && !cnpj.equals("") && !emailEstabelecimento.equals("")) {
-                        if (ControllerJava.cadastrarEstabelecimento(cnpj, nomeEstabelecimento, emailEstabelecimento, request.getSession().getAttribute("idUsuario"))) {
+                        if (ControllerJava.cadastrarEstabelecimento(logradouro, numero, bairro, cep, cidade, uf,
+                                cnpj, nomeEstabelecimento, emailEstabelecimento, request.getSession().getAttribute("idUsuario"))) {
+                            System.out.println("Cadastrou");
                             session.setAttribute("resposta", "sim");
                             response.sendRedirect("perfil.jsp");
                             

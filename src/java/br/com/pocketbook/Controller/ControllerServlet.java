@@ -8,7 +8,13 @@ package br.com.pocketbook.Controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.Clock;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.util.Calendar;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,6 +41,8 @@ public class ControllerServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        System.out.println("request: " + request + " response: " + response);
+        System.out.println("Ação: " + request.getParameter("acao"));
         
         if (request.getSession().getAttribute("usuario") != null) {
             response.sendRedirect("perfil.jsp");
@@ -43,6 +51,7 @@ public class ControllerServlet extends HttpServlet {
             if (null != acaoPost) {
                 switch (acaoPost) {
                     case "cadastroEstabelecimento":
+                        System.out.println("Eita nois");
                         response.sendRedirect("cadastroEstabelecimento.jsp");
                         break;
                     default:
@@ -82,6 +91,7 @@ public class ControllerServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         String acaoPost = request.getParameter("acao");
+        System.out.println("Ação: " + request.getParameter("acao"));
         
         if (null != acaoPost) {
             switch (acaoPost) {
@@ -153,21 +163,36 @@ public class ControllerServlet extends HttpServlet {
                     System.out.println("valor: " + request.getParameter("valor"));
                     float valor = Float.parseFloat(request.getParameter("valor"));
                     System.out.println("aqui: " + cod +" "+ nome +" "+ valor);
-                    System.out.println("data: " + Date.valueOf(LocalDate.MAX));
+                    System.out.println("data: " +  LocalDate.now());
+                    System.out.println("data: " +  Calendar.getInstance().getTime());
+                    Timestamp.from(Instant.MIN).getTime();
                     
-                    if (cod != 0 && nome != null && valor != 0) {
+                    if (cod != 0 && !nome.equals("") && valor != 0) {
                         System.out.println("passou");
                         if (ControllerJava.cadastrarProduto(cod, nome, valor)) {
+                            response.sendRedirect("cadatraProduto.jsp");
+                        }
+                    }
+                    break;
+                    
+                case "gerarNota":
+                    System.out.println("hujmmmmmm");
+                    String idPessoa = request.getParameter("cpfNota");
+                    System.out.println("pessoa: " + idPessoa);
+                    int codNota = Integer.parseInt(request.getParameter("codNota"));
+                    int quantidade = Integer.parseInt(request.getParameter("quantidade"));
+//                    float valor_total = Float.parseFloat(request.getParameter("valorTotal"));
+                    
+                    if (!idPessoa.equals("") && codNota != 0 && quantidade != 0) {
+                        System.out.println("passou");
+                        if (ControllerJava.gerarNota(idPessoa, codNota, quantidade)) {
                             response.sendRedirect("perfilEstabelecimento.jsp");
                         }
                     }
                     break;
                     
-                case "geraNota":
-                    int codNota = Integer.parseInt(request.getParameter("numeroNota"));
-                    int quantidade = Integer.parseInt(request.getParameter("quantidade"));
-                    float vTotal = Float.parseFloat(request.getParameter("valorTotal"));
-                    String data = request.getParameter("date");
+                case "cadastrarEstabelecimento":
+                    response.sendRedirect("cadastroEstabelecimento.jsp");
                     break;
                     
                 default:

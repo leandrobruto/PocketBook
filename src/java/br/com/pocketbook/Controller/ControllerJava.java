@@ -111,4 +111,18 @@ public class ControllerJava {
             return retorno;
         }
     }
+    
+    static boolean gerarNota(String idPessoa, int codNota, int quantidade){
+        Nota nota = new Nota(idPessoa, codNota, quantidade);
+        boolean retorno = false;
+        try {
+            System.out.println("opaNota");
+            nota.gerarNota();
+            return retorno;
+        } catch (SQLException ex) {
+            return retorno;
+        } catch (ClassNotFoundException ex) {
+            return retorno;
+        }
+    }
 }

@@ -48,7 +48,7 @@ public class EnderecoDAO {
                 con.close();
             }
         }
-        System.out.println("uruuuu");
+        
         int retorno = -1;
         PreparedStatement pegaid = null;
         con = new GerenteConexao().getConnection();
@@ -82,7 +82,7 @@ public class EnderecoDAO {
             if (con != null) {
                 con.close();
             }
-        }
+        }   
         return retorno;
     }
     

@@ -120,11 +120,17 @@ function showDivs(n) {
                 <p>Casdatre seu Estabelecimento:</p>
                 <div id="div1">
                     <div class="text"><h2>Seja nosso parceiro. Cadastre seu estabelecimento!</h2></div><br>
-                    <div class="text"><a href= " <%= request.getContextPath()%>/ControllerServlet?acao=cadastroEstabelecimento"></div>
+                    <form method="post" action=<%= request.getContextPath()%>/ControllerServlet?acao=cadastrarEstabelecimento>
+                <div class="button">
+                    <button type="submit">Cadastrar</button>
+		</div>
+                </form>
                 </div>
                 <br/>
                 <a href="<%= request.getContextPath()%>/LogoutServlet" title="Fazer logout">Sair</a>
             </div>
+            
+            
         </div>
         <div id="right">
 

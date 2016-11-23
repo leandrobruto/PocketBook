@@ -5,29 +5,36 @@
  */
 package br.com.pocketbook.modelo;
 
+import br.com.pocketbook.database.NotasDAO;
+import java.sql.SQLException;
+
 /**
  *
  * @author nexti
  */
 public class Nota {
-    private int numero;
+    private int cod;
     private int quantidade;
     private float valor_total;
+    private String idPessoa;
     private String data;
 
-    public Nota(int numero, int quantidade, float valor_total, String data) {
-        this.numero = numero;
+    public Nota(String idPessoa, int cod, int quantidade) {
+        this.cod = cod;
         this.quantidade = quantidade;
-        this.valor_total = valor_total;
-        this.data = data;
+        this.idPessoa = idPessoa;
+    }
+    
+    public Nota(){
+        
     }
 
-    public int getNumero() {
-        return numero;
+    public int getCod() {
+        return cod;
     }
 
-    public void setNumero(int numero) {
-        this.numero = numero;
+    public void setCod(int numero) {
+        this.cod = numero;
     }
 
     public int getQuantidade() {
@@ -53,6 +60,17 @@ public class Nota {
     public void setData(String data) {
         this.data = data;
     }
+
+    public String getIdPessoa() {
+        return idPessoa;
+    }
+
+    public void setIdPessoa(String idPessoa) {
+        this.idPessoa = idPessoa;
+    }
     
+    public void gerarNota()throws SQLException, ClassNotFoundException{
+        new NotasDAO().gerarNota(this);
+    }
     
 }

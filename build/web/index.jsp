@@ -26,23 +26,21 @@
 	</p>
         <form method="post" action="<%= request.getContextPath()%>/ControllerServlet?acao=login">
 		<div>
-                    <label for="email">E-mail:</label>
-                    <input name="email" type="email" id="email" align="right"/>
+                    <input name="email" type="email" id="email" placeholder="Nome" align="right"/>
 		</div>		
 		<p>
 		</p>
 	<div>
-            <label for="senha">Senha:</label>
-            <input name="senha" type="password" id="senha" align="right" />				
+            <input name="senha" type="password" id="senha" placeholder="Senha" align="right" />				
 		</div>
                 <br/>
 		<div class="button">
                     <button type="submit">Login</button>
 		</div>
             </form>
-		<p>Cadastre-se agora!</p>
+                <br/>
                     <div>
-			<a href="cadastro.jsp" target="_blank">Cadastrar</a>
+			<a href="cadastro.jsp">Cadastre-se agora!</a>
                     </div>
 		</center>
     </body>

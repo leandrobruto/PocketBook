@@ -24,7 +24,7 @@ public class EstabelecimentoDAO {
         boolean retorno = false;
         Connection con = new GerenteConexao().getConnection();
         PreparedStatement st = null;
-        String insert = "INSERT INTO PocketBook.estabelecimento (idEstabelecimento, id_usuario, id_endereco, nome, email) values(?,?,?,?,?)";
+        String insert = "INSERT INTO PocketBook.estabelecimento (idEstabelecimento, id_usuario, id_endereco, nome, email, senha) values(?,?,?,?,?,?)";
         
         try {
             st = con.prepareStatement(insert);
@@ -38,6 +38,8 @@ public class EstabelecimentoDAO {
             System.out.println("Nome: " + estabelecimento.getNome());
             st.setString(5, estabelecimento.getEmail());
             System.out.println("Email: " + estabelecimento.getEmail());
+            st.setString(6, estabelecimento.getSenha());
+            System.out.println("Senha: " + estabelecimento.getSenha());
             
             st.execute();
             LOG.info("Estabelecimento adicionado");
@@ -59,22 +61,26 @@ public class EstabelecimentoDAO {
         Estabelecimento retorno = null;
         Connection con = new GerenteConexao().getConnection();
         PreparedStatement st = null;
-        String query = "SELECT idEstabelecimento, id_usuario, id_endereco, nome, email from PocketBook.estabelecimento where idEstabelecimento=?";
+        String query = "SELECT idEstabelecimento, id_usuario, id_endereco, nome, email, senha from PocketBook.estabelecimento where email=?";
 
         try {
+            System.out.println("EstabelecimentoDAO");
             st = con.prepareStatement(query);
             st.setString(1, id);
             ResultSet rs = st.executeQuery();
 
             if (rs.next()) {
+                String idEstabelecimento = rs.getString("idEstabelecimento");
                 String id_usuario = rs.getString("id_usuario");
                 int id_endereco = rs.getInt("id_endereco");
                 String nome = rs.getString("Nome");
                 String email = rs.getString("email");
+                String senha = rs.getString("senha");
 
-                retorno = new Estabelecimento(id, id_usuario, id_endereco);
+                retorno = new Estabelecimento(idEstabelecimento, id_usuario, id_endereco);
                 retorno.setNome(nome);
                 retorno.setEmail(email);
+                retorno.setSenha(senha);
             }
         } catch (SQLException e) {
             LOG.info(e.getMessage());

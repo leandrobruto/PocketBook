@@ -7,14 +7,6 @@ package br.com.pocketbook.Controller;
  */
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.Clock;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.util.Calendar;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -43,22 +35,15 @@ public class ControllerServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         System.out.println("request: " + request + " response: " + response);
         System.out.println("Ação: " + request.getParameter("acao"));
+        System.out.println("usr: " + request.getSession().getAttribute("usuario"));
+        System.out.println("emp: " + request.getSession().getAttribute("empresa"));
         
         if (request.getSession().getAttribute("usuario") != null) {
-            response.sendRedirect("perfil.jsp");
+            response.sendRedirect("perfilUsuario.jsp");
+        } else if (request.getSession().getAttribute("empresa") != null) {
+            response.sendRedirect("perfilEstabelecimento.jsp");
         } else {
-            String acaoPost = request.getParameter("acao");
-            if (null != acaoPost) {
-                switch (acaoPost) {
-                    case "cadastroEstabelecimento":
-                        System.out.println("Eita nois");
-                        response.sendRedirect("cadastroEstabelecimento.jsp");
-                        break;
-                    default:
-                        processeErro(request, response);
-                        break;
-                }
-            }
+            processeErro(request, response);
         }
     }
 
@@ -75,7 +60,7 @@ public class ControllerServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
+
     }
 
     /**
@@ -92,61 +77,68 @@ public class ControllerServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String acaoPost = request.getParameter("acao");
         System.out.println("Ação: " + request.getParameter("acao"));
-        
+
         if (null != acaoPost) {
             switch (acaoPost) {
                 case "login":
                     String usuario = request.getParameter("email");
-                    String senhaU = request.getParameter("senha");
-                    if (ControllerJava.login(usuario, senhaU)) {
+                    String senha = request.getParameter("senha");
+                    System.out.println("email: " + usuario + " senha: " + senha);
+                    if (ControllerJava.loginUsuario(usuario, senha)) {
                         session.setAttribute("usuario", ControllerJava.getNome(usuario));
                         session.setAttribute("idUsuario", usuario);
+                        processRequest(request, response);
+                    } else if (ControllerJava.loginEmpresa(usuario, senha)) {
+                        System.out.println("Coisou");
+                        session.setAttribute("empresa", ControllerJava.getEstabelecimento(usuario));
+                        session.setAttribute("idEmpresa", usuario);
                         processRequest(request, response);
                     } else {
                         processeErro(request, response);
                     }
                     break;
-                    
-                case "cadastro":
+
+                case "cadastroUsuario":
                     String name = request.getParameter("name");
                     String sobrenome = request.getParameter("sobrenome");
                     String email = request.getParameter("email");
                     String cpf = request.getParameter("cpf");
                     String telefone = request.getParameter("telefone");
-                    String senha = request.getParameter("senha");
+                    String senhaUser = request.getParameter("senha");
                     String confSenha = request.getParameter("confSenha");
-                    
-                    System.out.println("user: " + name + " email: " + email + " senha: " + senha + " ConfSenha: " + confSenha + "cpf: " + cpf);
-                    if (this.confirmaString(senha, confSenha)) {
-                        if (ControllerJava.cadastrar(name, sobrenome, email, telefone, senha, cpf)) {
+
+                    System.out.println("user: " + name + " email: " + email + " senha: " + senhaUser + " ConfSenha: " + confSenha + "cpf: " + cpf);
+                    if (this.confirmaString(senhaUser, confSenha)) {
+                        if (ControllerJava.cadastrar(name, sobrenome, email, telefone, senhaUser, cpf)) {
                             response.sendRedirect("index.jsp");
                         } else {
                             processeErro(request, response);
                         }
                     }
                     break;
-                    
-                case "cadastrarE":
-                    System.out.println("cadastro estabelecimento");
+
+                case "cadastroEstabelecimento":
                     String nomeEstabelecimento = request.getParameter("nomeEstabelecimento");
                     String emailEstabelecimento = request.getParameter("emailE");
                     String confirmeEmail = request.getParameter("cEmailE");
                     String cnpj = request.getParameter("cnpj");
+                    String telefoneEmpresa = request.getParameter("telefone");
+                    String senhaEmpresa = request.getParameter("senhaEmpresa");
                     String logradouro = request.getParameter("logradouro");
                     int numero = Integer.parseInt(request.getParameter("numero"));
                     String bairro = request.getParameter("bairro");
                     String cep = request.getParameter("cep");
                     String cidade = request.getParameter("cidade");
                     String uf = request.getParameter("uf");
-                    
-                    System.out.println("Cadastro");
+
                     if (this.confirmaString(emailEstabelecimento, confirmeEmail) && !nomeEstabelecimento.equals("") && !cnpj.equals("") && !emailEstabelecimento.equals("")) {
                         if (ControllerJava.cadastrarEstabelecimento(logradouro, numero, bairro, cep, cidade, uf,
-                                cnpj, nomeEstabelecimento, emailEstabelecimento, request.getSession().getAttribute("idUsuario"))) {
-                            System.out.println("Cadastrou");
-                            session.setAttribute("resposta", "sim");
-                            response.sendRedirect("perfilEstabelecimento.jsp");
-                            
+                                cnpj, nomeEstabelecimento, emailEstabelecimento, telefoneEmpresa, senhaEmpresa, request.getSession().getAttribute("idUsuario"))) {
+
+                            session.setAttribute("empresa", ControllerJava.getEstabelecimento(emailEstabelecimento));
+                            session.setAttribute("idEmpresa", request.getParameter(cnpj));
+                            processRequest(request, response);
+
                         } else {
                             processeErro(request, response);
                         }
@@ -154,35 +146,26 @@ public class ControllerServlet extends HttpServlet {
                         processeErro(request, response);
                     }
                     break;
-                    
+
                 case "cadastraProduto":
-                    System.out.println("cod: " + request.getParameter("cod"));
                     int cod = Integer.parseInt(request.getParameter("cod"));
-                    System.out.println("nome: " + request.getParameter("nome"));
-                    String nome = request.getParameter("nome");
-                    System.out.println("valor: " + request.getParameter("valor"));
+                    String nome = request.getParameter("descricao");
                     float valor = Float.parseFloat(request.getParameter("valor"));
-                    System.out.println("aqui: " + cod +" "+ nome +" "+ valor);
-                    System.out.println("data: " +  LocalDate.now());
-                    System.out.println("data: " +  Calendar.getInstance().getTime());
-                    Timestamp.from(Instant.MIN).getTime();
-                    
+
                     if (cod != 0 && !nome.equals("") && valor != 0) {
-                        System.out.println("passou");
                         if (ControllerJava.cadastrarProduto(cod, nome, valor)) {
                             response.sendRedirect("cadatraProduto.jsp");
                         }
                     }
                     break;
-                    
+
                 case "gerarNota":
                     System.out.println("hujmmmmmm");
                     String idPessoa = request.getParameter("cpfNota");
                     System.out.println("pessoa: " + idPessoa);
                     int codNota = Integer.parseInt(request.getParameter("codNota"));
                     int quantidade = Integer.parseInt(request.getParameter("quantidade"));
-//                    float valor_total = Float.parseFloat(request.getParameter("valorTotal"));
-                    
+
                     if (!idPessoa.equals("") && codNota != 0 && quantidade != 0) {
                         System.out.println("passou");
                         if (ControllerJava.gerarNota(idPessoa, codNota, quantidade)) {
@@ -190,18 +173,14 @@ public class ControllerServlet extends HttpServlet {
                         }
                     }
                     break;
-                    
-                case "cadastrarEstabelecimento":
-                    response.sendRedirect("cadastroEstabelecimento.jsp");
-                    break;
-                    
+
                 default:
                     processeErro(request, response);
                     break;
             }
         }
     }
-    
+
     /**
      * Returns a short description of the servlet.
      *
@@ -213,7 +192,7 @@ public class ControllerServlet extends HttpServlet {
     }// </editor-fold>
 
     private boolean confirmaString(String senha, String cSenha) {
-            return senha.equals(cSenha);
+        return senha.equals(cSenha);
     }
 
     protected void processeErro(HttpServletRequest request, HttpServletResponse response)

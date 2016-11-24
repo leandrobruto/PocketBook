@@ -39,4 +39,31 @@ public class DAODosJoin {
         }
         return retorno;
     }
+    
+    public static String getNomeEstabelecimento(String email) throws SQLException{
+        String retorno = null;
+        Connection conexao = new GerenteConexao().getConnection();
+        PreparedStatement st = null;
+        System.out.println("Que loucura");
+        String query = "select nome from estabelecimento where email=?";
+        try{
+            st= conexao.prepareStatement(query);
+            st.setString(1, email);
+            ResultSet rs = st.executeQuery();
+            if(rs.next()){
+                retorno = rs.getString("nome");
+            }
+        }catch(SQLException sql){
+            throw sql;
+        }finally{
+            if(conexao != null){
+            conexao.close();
+            }
+            if( st != null){
+                st.close();
+            }
+        }
+        System.out.println("RetornoDao: " + retorno);
+        return retorno;
+    }
 }

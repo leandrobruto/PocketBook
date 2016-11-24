@@ -73,7 +73,7 @@ public class UserDAO {
             if (con != null) {
                 con.close();
             }
-        }
+        }        
         return retorno;
     }
 }

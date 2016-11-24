@@ -31,7 +31,6 @@ public class PessoaDAO {
             st.setString(1, pessoa.getId()); //cpf
             st.setString(2, pessoa.getNome());
             st.setString(3, pessoa.getSobrenome());
-//            st.setInt(4, pessoa.getId_endereco()); //endereço id
             System.out.println("hum");
             st.execute();
             System.out.println("Urri");

@@ -18,12 +18,12 @@
 <style>
 .mySlides {display:none}
 </style>
-        <script>
+<!--        <script>
             function funcao1()
             {
                 alert("Cadastrado com sucesso");
             }
-        </script>
+        </script>-->
     </head>
     <body>
         <c:if test="${not empty resposta}">
@@ -34,40 +34,53 @@
             <center>
                 <div class="c"><img src="pocketbook-logo.png"></img></div>
             </center>
-            <div class="c"><p>PocketBook</p></div>
-            <div class="c"><p>perfil</p></div>
+            <br/>
+            <div id="left"> 
+            <div style="border-bottom: solid #575757"></div>
+                <div><h3><font style="text-transform: capitalize">Bem vindo, <%= request.getSession().getAttribute("usuario")%>!</font></h3></div>
+               <div style="border-bottom: solid #575757"></div>
         </div>
-        <br/>
         <ul id="nav" >
             <li><a href="#">Home</a></li>
             <li><a href="#">Sobre Nós</a></li>
-            <li><a href="#">Portfólio</a>
+            <li><a href="#">Notas</a>
                 <ul>
                     <li><a href="#">sub - 1</a></li>
                     <li><a href="#">sub - 2</a></li>
                     <li><a href="#">sub - 3</a></li>
                 </ul>
             </li>
-            <li><a href="#">Serviços</a>
+            <li><a href="#">Relatório</a>
                 <ul>
                     <li><a href="#">sub - 1</a></li>
                     <li><a href="#">sub - 2</a></li>
                     <li><a href="#">sub - 3</a></li>
                 </ul>
             </li>
-            <li><a href="#">Blog</a></li>
-            <li><a href="#">Contato</a></li>
+            <li><a href="#">Editar perfil</a></li>
+            <li><a href="#">Logout</a></li>
         </ul>
-        <br/>
-
-        <div id="left"> 
-            <div style="border-bottom: solid #575757">
-                <div><h2>Bem vindo!</h2></div>
-                <!--<div><img src="perfil.jpg" width="60%" height="60%" ></div>-->
-                <div><h2><%= request.getSession().getAttribute("usuario")%> !</h2></div>
-                <br/>
-                <div><a href="<%= request.getContextPath()%>/ControllerServlet?acao=perfil">Editar Perfil</a></div>
-            </div>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
             <br/>
             
             <div class="w3-content" style="max-width:800px">
@@ -115,16 +128,12 @@ function showDivs(n) {
   dots[slideIndex-1].className += " w3-red";
 }
 </script>
-            
+<br/>
             <div>
-                <p>Casdatre seu Estabelecimento:</p>
                 <div id="div1">
-                    <div class="text"><h2>Seja nosso parceiro. Cadastre seu estabelecimento!</h2></div><br>
-                    <form method="post" action=<%= request.getContextPath()%>/ControllerServlet?acao=cadastrarEstabelecimento>
-                <div class="button">
-                    <button type="submit">Cadastrar</button>
-		</div>
-                </form>
+                    <div class="text"><h3>Seja nosso parceiro. 
+                            Cadastre seu estabelecimento!</h3></div>
+                            <a href="cadastroEstabelecimento.jsp">Cadastrar!</a>
                 </div>
                 <br/>
                 <a href="<%= request.getContextPath()%>/LogoutServlet" title="Fazer logout">Sair</a>

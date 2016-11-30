@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <style>body {background-color: gray;}
+        <style>body {background-color: #cccccc;}
             h1{color: black;}
             p{color: black;}
         </style>

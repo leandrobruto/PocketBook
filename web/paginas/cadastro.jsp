@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <style>body {background-color: powderblue;}
+        <style>body {background-color: gray;}
             h1{color: black;}
             p{color: black;}
         </style>
@@ -20,47 +20,30 @@
 </head>
 <title>Pocket Book</title>
 <body>
-<center>
-    <p><h1>Cadastro</h1></p>
-<br/>
+
+    <center><p><h1>Cadastro</h1></p></center>
 <form method="post" action="<%= request.getContextPath()%>/ControllerServlet?acao=cadastroUsuario">
-    <div>
-        <label for="nome">Nome:</label>		
-        <center><input name="name" type="nome" id="nome" /></center>
-    </div>	
-    <br/>
-    <div>
-        <label for="sobrenome">Sobrenome:</label>
-        <center><input name="sobrenome" type="text" id="sobrenome" /></center>				
-    </div>
-    <br/>
-    <div>
-        <label for="email">E-mail:</label>
-        <center><input name="email" type="email" id="email" /></center>				
-    </div>
-    <br/>
-    <div>
-        <label for="cpf">CPF:</label>
-        <center><input name="cpf" type="text" id="cpf"/></center>				
-    </div>
-    <br/>
-    <div>
-        <label for="telefone">Telefone:</label>
-        <center><input name="telefone" type="tel" id="telafone"/></center>				
-    </div>
-    <br/>
-    <div>
-        <label for="senha">Senha:</label>
-        <center><input name="senha" type="password" id="senha"/></center>				
-    </div>
-    <br/>
-    <div>
-        <label for="senha">Confirme a senha:</label>
-        <center><input name="confSenha" type="password" id="senha"/></center>
-    </div>
-    <br/>
+    <center>
+	   <table>
+		    <tr><td><input name="name" type="nome" id="nome" placeholder="Nome"/></td></tr>  
+            <tr></tr> <tr></tr> <tr></tr>
+            <tr><td><input name="sobrenome" type="text" id="sobrenome" placeholder="Sobrenome"/></td></tr>  
+            <tr></tr> <tr></tr> <tr></tr>
+            <tr><td><input name="email" type="email" id="email" placeholder="E-mail"/></td></tr>  
+            <tr></tr> <tr></tr> <tr></tr>        
+            <tr><td><input name="cpf" type="text" id="cpf" placeholder="CPF"/></td></tr>  
+            <tr></tr> <tr></tr> <tr></tr>            
+            <tr><td><input name="telefone" type="tel" id="telafone" placeholder="Telefone"/></td></tr>  
+            <tr></tr> <tr></tr> <tr></tr>            
+            <tr><td><input name="senha" type="password" id="senha" placeholder="Senha"/></td></tr>  
+            <tr></tr> <tr></tr> <tr></tr>            
+            <tr><td><input name="confSenha" type="password" id="senha" placeholder="Confirme a senha"/></td></tr>  
+            <tr></tr> <tr></tr> <tr></tr>
+	   </table>
+    </center>
+    
     <div class="button">
-        <button type="submit">Cadastrar</button>
+        <center><button type="submit">Cadastrar</button></center>
     </div>
 </form>
 
@@ -70,7 +53,5 @@
 
     </div>
 </div>
-</center>
 </body>
 </html>
-
